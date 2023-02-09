@@ -10,3 +10,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RATING {
+  CHICKEN
+  CHICKEN_CHICKEN
+  CHICKEN_CHICKEN_CHICKEN
+  CHICKEN_CHICKEN_CHICKEN_CHICKEN
+  CHICKEN_CHICKEN_CHICKEN_CHICKEN_CHICKEN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  username  String   @unique
+  password  String
+  reviews   Review[]
+}
+
+model Review {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  establishment String   @db.VarChar(255)
+  address       String
+  description   String?
+  body          String
+  rating        RATING?
+  reviewedById  String
+  reviewedBy    User     @relation(fields: [reviewedById], references: [id])
+  public        Boolean
+}
