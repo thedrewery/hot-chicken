@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 enum RATING {
@@ -19,22 +20,35 @@ enum RATING {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  username  String   @unique
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  username  String    @unique
+  email     String    @unique
   password  String
   reviews   Review[]
+  Comment   Comment[]
 }
 
 model Review {
-  id            String   @id @default(uuid())
-  createdAt     DateTime @default(now())
-  establishment String   @db.VarChar(255)
+  id            String    @id @default(uuid())
+  createdAt     DateTime  @default(now())
+  establishment String    @db.VarChar(255)
   address       String
   description   String?
   body          String
   rating        RATING?
   reviewedById  String
-  reviewedBy    User     @relation(fields: [reviewedById], references: [id])
+  reviewedBy    User      @relation(fields: [reviewedById], references: [id])
   public        Boolean
+  Comment       Comment[]
+}
+
+model Comment {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now())
+  body                String
+  commentedById       String
+  commentedBy         User     @relation(fields: [commentedById], references: [id])
+  commentedOnReviewId String
+  commentedOnReview   Review   @relation(fields: [commentedOnReviewId], references: [id])
 }
