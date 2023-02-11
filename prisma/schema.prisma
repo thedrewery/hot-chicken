@@ -32,7 +32,7 @@ model User {
 model Review {
   id            String    @id @default(uuid())
   createdAt     DateTime  @default(now())
-  establishment String    @db.VarChar(255)
+  establishment String    
   address       String
   description   String?
   body          String
