@@ -50,4 +50,6 @@ model Comment {
   commentedBy         User     @relation(fields: [commentedById], references: [id])
   commentedOnReviewId String
   commentedOnReview   Review   @relation(fields: [commentedOnReviewId], references: [id])
+  @@unique([id, commentedById])
+  @@unique([id, commentedOnReviewId])
 }
