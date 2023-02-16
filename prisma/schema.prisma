@@ -39,6 +39,7 @@ model Review {
   reviewedBy    User      @relation(fields: [reviewedById], references: [id])
   public        Boolean
   comments      Comment[]
+  @@unique([id, reviewedById])
 }
 
 model Comment {
