@@ -1,4 +1,3 @@
-import { renameSync } from 'fs';
 import prisma from '../db';
 
 //get all reviews from a single user
