@@ -39,7 +39,8 @@ export const getPublicReviews = async (req, res) => {
     res.json({data: publicReviews})
 }
 
-export const createReview = async (req, res) => {
+export const createReview = async (req, res, next) => {
+    try {
     const review = await prisma.review.create({
         data: {
             establishment: req.body.establishment,
@@ -53,6 +54,9 @@ export const createReview = async (req, res) => {
     })
 
     res.json({ data: review })
+    } catch (e) {
+        next(e)
+    }
 }
 
 export const updateReview = async (req, res) => {
