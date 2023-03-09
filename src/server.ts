@@ -14,11 +14,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-// app.get('/', (req, res) => {
-//     console.log('hello from express')
-//     res.status(200)
-//     res.json({ message: 'hello!' })
-// });
+app.get('/', (req, res) => {
+    console.log('hello from drewery hot chicken')
+    res.status(200)
+    res.json({ message: 'kluck kluck mofo' })
+});
 
 app.use('/api', protect, router);
 
