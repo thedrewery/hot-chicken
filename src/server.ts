@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     console.log('hello from drewery hot chicken')
     res.status(200)
-    res.json({ message: 'kluck kluck my fellow hot chicken lovers' })
+    res.json({ message: 'kluck kluck my fellow hot chicken lovers!' })
 });
 
 app.use('/api', protect, router);

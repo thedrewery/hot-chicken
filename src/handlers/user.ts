@@ -11,8 +11,10 @@ export const createNewUser = async (req, res, next) => {
                 email: req.body.email
             }
         })
-        const token = createJWT(user);
-        res.json({ token });
+        const response = createJWT(user)
+        const token = response[0]
+        const userId = response[1]
+        res.json({ token, userId });
     } catch (e) {
         e.type = 'input'
         next(e)
@@ -38,6 +40,8 @@ export const signIn = async (req, res) => {
         return
     }
 
-    const token = createJWT(user)
-    res.json({ token });
+    const response = createJWT(user)
+    const token = response[0]
+    const userId = response[1]
+    res.json({ token, userId });
 }

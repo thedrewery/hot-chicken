@@ -18,7 +18,7 @@ export const createJWT = (user) => {
     },
         process.env.JWT_SECRET
     )
-    return token;
+    return [token, user.id];
 }
 
 export const protect = (req, res, next) => {
