@@ -3,7 +3,7 @@ import router from './router';
 import morgan from 'morgan';
 import cors from 'cors';
 import { protect } from './modules/auth';
-import { createNewUser, signIn } from './handlers/user';
+import { createNewUser, signIn, getUsernameFromId } from './handlers/user';
 
 
 const app = express();
@@ -24,6 +24,8 @@ app.use('/api', protect, router);
 
 app.post('/user', createNewUser);
 app.post('/signin', signIn);
+app.get('/username', getUsernameFromId)
+
 
 app.use((err, req, res, next) => {
     if (err.type === 'auth') {
