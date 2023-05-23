@@ -45,12 +45,3 @@ export const signIn = async (req, res) => {
     const userId = response[1]
     res.json({ token, userId });
 }
-
-export const getUsernameFromId = async (req, res, next) => {
-    const user = await prisma.user.findUnique({
-        where: {
-            id: req.body.id
-        }
-    })
-    res.json(user.username)
-}

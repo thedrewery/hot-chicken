@@ -8,10 +8,14 @@ export const getReviews = async (req, res) => {
         },
         include: {
             reviews: true
+            
         }
     })
-
-    res.json({ data: user.reviews})
+    
+    const decoratedReviews = (user.reviews).map((review) => {
+        review.reviewedByUsername = user.username
+    })
+    res.json({data: user.reviews})
 }
 
 //get single review from single user
@@ -36,7 +40,20 @@ export const getPublicReviews = async (req, res) => {
         }
     })
 
-    res.json({data: publicReviews})
+    const decoratedReviews = await Promise.all(
+        publicReviews.map(async (review) => {
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: review.reviewedById
+                },
+            });
+            return {
+                ...review,
+                reviewedByUsername: user.username,
+        }
+    })
+    )
+    res.json({data: decoratedReviews})
 }
 
 export const createReview = async (req, res, next) => {
