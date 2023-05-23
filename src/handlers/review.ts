@@ -66,8 +66,7 @@ export const createReview = async (req, res, next) => {
             body: req.body.body,
             rating: req.body.rating,
             public: req.body.public,
-            reviewedById: req.user.id,
-            reviewedByUsername: req.user.username
+            reviewedById: req.user.id
         }
     })
 
