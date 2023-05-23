@@ -1,11 +1,10 @@
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -28,17 +27,19 @@ model User {
 }
 
 model Review {
-  id            String    @id @default(uuid())
-  createdAt     DateTime  @default(now())
-  establishment String    @db.VarChar(255)
-  address       String    @db.VarChar(255)
-  description   String?
-  body          String
-  rating        RATING?
-  reviewedById  String
-  reviewedBy    User      @relation(fields: [reviewedById], references: [id])
-  public        Boolean
-  comments      Comment[]
+  id                 String    @id @default(uuid())
+  createdAt          DateTime  @default(now())
+  establishment      String    @db.VarChar(255)
+  address            String    @db.VarChar(255)
+  description        String?
+  body               String
+  rating             RATING?
+  reviewedById       String
+  reviewedBy         User      @relation(fields: [reviewedById], references: [id])
+  reviewedByUsername String?
+  public             Boolean
+  comments           Comment[]
+
   @@unique([id, reviewedById])
 }
 
@@ -50,6 +51,7 @@ model Comment {
   commentedBy         User     @relation(fields: [commentedById], references: [id])
   commentedOnReviewId String
   commentedOnReview   Review   @relation(fields: [commentedOnReviewId], references: [id])
+
   @@unique([id, commentedById])
   @@unique([id, commentedOnReviewId])
 }
