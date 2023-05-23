@@ -20,6 +20,9 @@
     "url": "https://github.com/thedrewery/hot-chicken/issues"
   },
   "homepage": "https://github.com/thedrewery/hot-chicken#readme",
+  "engines": {
+    "npm":"14.19.2"
+  },
   "dependencies": {
     "@prisma/client": "^4.10.1",
     "@types/jest": "^29.4.0",
